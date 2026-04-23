@@ -340,7 +340,7 @@ const LeftCol = styled.div`
     font-weight: bold;
 
     @media (max-width: 768px) {
-      font-size: 4rem;
+      font-size: 4.5rem;
     }
   }
 
@@ -354,7 +354,7 @@ const LeftCol = styled.div`
     text-align: right;
 
     @media (max-width: 768px) {
-      font-size: 1.8rem;
+      font-size: 2rem;
     }
   }
 

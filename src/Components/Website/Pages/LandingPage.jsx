@@ -31,9 +31,7 @@ export default LandingPage;
 
 let LandingPageContainer = styled.div`
     .form-container{
-      position: fixed;
-  top: 0;
-  left: 0;
+      
   width: 100vw;
   height: 100vh;
   display: flex;
