@@ -6,7 +6,7 @@ import illustration from "../../../assets/illustration1.png";
 const LandingPageContent = () => {
   return (
     <Container>
-      <PreLoader />
+      {/* <PreLoader /> */}
       <Navbar>
         <NavLinks>
           <NavLink href="#">Gmail</NavLink>
