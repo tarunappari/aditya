@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import PreLoader from "./PreLoader";
 import illustration from "../../../assets/illustration1.png";
 
@@ -29,7 +29,7 @@ const LandingPageContent = () => {
             </p>
           </Description>
           <ActionButtons>
-            <Button href="https://drive.google.com/file/d/1aPeHVyaXaAML1fnZLJDfeeIeqm9cfGv_/preview" target="_blank">Resume</Button>
+            <Button href="https://drive.google.com/file/d/1utmeT1y91LCD4nlIerbFQAIXgM0vZKUG/preview" target="_blank">Resume</Button>
             <Button href="https://drive.google.com/file/d/1QzasVGAUr5wfPv_6Gv9mmHGcan3sKFL0/preview" target="_blank">Portfolio</Button>
           </ActionButtons>
         </LeftSection>
@@ -134,6 +134,7 @@ const LeftSection = styled.div`
   flex-direction: column;
   justify-content: center;
   max-width: 650px;
+  padding-top: 20px;
 
   
 `;
@@ -191,13 +192,14 @@ const Description = styled.div`
   margin-bottom: 3.5rem;
   color: rgba(255, 255, 255, 0.95);
   text-align: justify;
+  margin-top: -1rem;
 
   @media (max-width: 1024px) {
     text-align: center;
   }
   
   p {
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
   }
 `;
 
@@ -205,6 +207,9 @@ const ActionButtons = styled.div`
   display: flex;
   gap: 1.5rem;
   justify-content: center;
+   @media (max-width: 1024px) {
+    margin-top: -2.5rem;
+  }
 `;
 
 const Button = styled.a`
@@ -236,11 +241,24 @@ const RightSection = styled.div`
   }
 `;
 
+const float = keyframes`
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+`;
+
 const Illustration = styled.img`
   max-width: 90%;
   height: auto;
   object-fit: contain;
   margin-right: -2rem;
+  animation: ${float} 4s ease-in-out infinite;
 
   @media (max-width: 1024px) {
     max-width: 80%;
