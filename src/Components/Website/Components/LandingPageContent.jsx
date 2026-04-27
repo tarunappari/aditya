@@ -9,10 +9,10 @@ const LandingPageContent = () => {
       {/* <PreLoader /> */}
       <Navbar>
         <NavLinks>
-          <NavLink href="#">Gmail</NavLink>
-          <NavLink href="#">Contact</NavLink>
-          <NavLink href="#">LinkedIn</NavLink>
-          <NavLink href="#">WhatsApp</NavLink>
+          <NavLink href="mailto:sunnyaditya55@gmail.com">Gmail</NavLink>
+          <NavLink href="tel:916281203799">Contact</NavLink>
+          <NavLink href="https://www.linkedin.com/in/aditya-vardhan-b26734247/">LinkedIn</NavLink>
+          <NavLink href="https://wa.me/916281203799">WhatsApp</NavLink>
         </NavLinks>
       </Navbar>
       <MainContent>
