@@ -1,215 +1,253 @@
-import React, { useEffect, useRef, useState } from "react";
-import gsap from "gsap";
+import React from "react";
 import styled from "styled-components";
 import PreLoader from "./PreLoader";
-import { useNavigate } from "react-router-dom";
-import AboutContent from '../Components/AboutContent'
+import illustration from "../../../assets/illustration1.png";
 
-const 
-LandingPageContent = () => {
-
-  const subHeaders = [
-    "top-notch web designing",
-    "forging ahead with elite web designs",
-    "take the fast lane to mastery",
-    "bring your project to life, quicker than ever",
-  ];
-
-  const placeholderRef = useRef(null);
-  const subheaderRef = useRef(null);
-
-  let navigate = useNavigate()
-
-  useEffect(() => {
-    const items = document.querySelectorAll('.nav-item');
-
-
-    function changeColors() {
-      gsap.to('.container', { backgroundColor: "#000", duration: 0.5 });
-      gsap.to('.placeholder, nav, footer, p', { color: "#fff", duration: 0.5 });
-    }
-
-    function revertColors() {
-      gsap.to('.container', { backgroundColor: "#e3e3e3", duration: 0.5 });
-      gsap.to('.placeholder, nav, footer, p', { color: "#000", duration: 0.5 });
-    }
-
-    function animateScale(element, scaleValue) {
-      gsap.fromTo(element, { scale: 1 }, { scale: scaleValue, duration: 2, ease: 'power1.out' });
-    }
-
-    function wrapLetters(text) {
-      if (placeholderRef.current) {
-        placeholderRef.current.innerHTML = '';
-        [...text].forEach(letter => {
-          const span = document.createElement('span');
-          span.style.filter = 'blur(8px)';
-          span.textContent = letter;
-          placeholderRef.current.appendChild(span);
-        });
-      }
-    }
-
-    function animateBlueEffect() {
-      const letters = placeholderRef.current?.children;
-      if (!letters) return;
-      let index = 0;
-
-      function clearNextLetter() {
-        if (index < letters.length) {
-          gsap.to(letters[index], { filter: 'blur(0px)', duration: 0.5 });
-          index++;
-          if (index < letters.length) {
-            setTimeout(clearNextLetter, 100);
-          }
-        }
-      }
-
-      setTimeout(clearNextLetter, 0);
-    }
-
-    function shuffleLetters(finalText) {
-      wrapLetters(finalText.replace(/./g, ' '));
-
-      let textArray = finalText.split('');
-      let shufflingCounter = 0;
-      let intervalHandles = [];
-
-      function shuffle(index) {
-        if (shufflingCounter < 30) {
-          textArray[index] = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'[Math.floor(Math.random() * 26)];
-          if (placeholderRef.current) {
-            placeholderRef.current.children[index].textContent = textArray[index];
-          }
-        } else {
-          if (placeholderRef.current) {
-            placeholderRef.current.children[index].textContent = finalText.charAt(index);
-          }
-          clearInterval(intervalHandles[index]);
-        }
-      }
-
-      for (let i = 0; i < finalText.length; i++) {
-        intervalHandles[i] = setInterval(shuffle, 80, i);
-      }
-
-      setTimeout(() => {
-        shufflingCounter = 30;
-        if (placeholderRef.current) {
-          for (let i = 0; i < finalText.length; i++) {
-            placeholderRef.current.children[i].textContent = finalText.charAt(i);
-            clearInterval(intervalHandles[i]);
-          }
-        }
-        animateBlueEffect();
-      }, 1000);
-    }
-
-    function updatePlaceholderText(event) {
-      const newText = event.target.textContent.toUpperCase();
-      const itemIndex = Array.from(items).indexOf(event.target);
-      const newSubHeaderText = subHeaders[itemIndex].toUpperCase();
-
-      if (subheaderRef.current) {
-        subheaderRef.current.textContent = newSubHeaderText;
-      }
-      animateScale(placeholderRef.current, 1.25);
-      shuffleLetters(newText);
-    }
-
-    function resetPlaceholderText() {
-      const defaultText = 'ALTER';
-      const defaultSubHeaderText = "THE ALTER OFFICE ASSIGNMENT.";
-
-      if (subheaderRef.current) {
-        subheaderRef.current.textContent = defaultSubHeaderText;
-      }
-      animateScale(placeholderRef.current, 1.25);
-      shuffleLetters(defaultText);
-    }
-
-    items.forEach((item) => {
-      item.addEventListener('mouseover', updatePlaceholderText);
-      item.addEventListener('mouseout', resetPlaceholderText);
-    });
-    
-    return () => {
-      items.forEach((item) => {
-        item.removeEventListener('mouseover', updatePlaceholderText);
-        item.removeEventListener('mouseout', resetPlaceholderText);
-      });
-    };
-  }, []);
-
+const LandingPageContent = () => {
   return (
     <Container>
       <PreLoader />
-      <div className="container">
-        <AboutContent />
-      </div>
+      <Navbar>
+        <NavLinks>
+          <NavLink href="#">Gmail</NavLink>
+          <NavLink href="#">Contact</NavLink>
+          <NavLink href="#">LinkedIn</NavLink>
+          <NavLink href="#">WhatsApp</NavLink>
+        </NavLinks>
+      </Navbar>
+      <MainContent>
+        <LeftSection>
+          <Greeting>Hello! I am</Greeting>
+          <Name>Aditya Vardhan</Name>
+          <Role>Graphic Designer</Role>
+          <Description>
+            <p>
+              Each design in my portfolio reflects a combination of creativity, strategy, and attention to detail. I focus on delivering visually striking designs that effectively communicate the intended message while maintaining a strong aesthetic appeal.
+            </p>
+            <p>
+              From concept to execution, every project demonstrates my ability to balance design principles with innovative thinking, resulting in work that is both functional and visually engaging.
+            </p>
+          </Description>
+          <ActionButtons>
+            <Button href="https://drive.google.com/file/d/1aPeHVyaXaAML1fnZLJDfeeIeqm9cfGv_/preview" target="_blank">Resume</Button>
+            <Button href="https://drive.google.com/file/d/1QzasVGAUr5wfPv_6Gv9mmHGcan3sKFL0/preview" target="_blank">Portfolio</Button>
+          </ActionButtons>
+        </LeftSection>
+        <RightSection>
+          <Illustration src={illustration} alt="Workspace Illustration" />
+        </RightSection>
+      </MainContent>
     </Container>
   );
 };
 
 export default LandingPageContent;
 
+const Container = styled.div`
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  
+  width: 100vw;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #071a5c 0%, #153c9b 50%, #207be5 100%);
+  font-family: 'Inter', sans-serif !important;
+  * {
+    font-family: 'Inter', sans-serif !important;
+    color: white;
+  }
+  color: white;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  overflow-x: hidden;
+`;
 
-let Container = styled.div`
-    width: 100vw;
-    height: 100vh;
-   
-    .container{
-    width: 100%;
-    height: 100%;
-    font-family:'Courier New', Courier, monospace;
-    text-transform: uppercase;
-    background: #e3e3e3;
-}
-
-nav,footer{
-    position: absolute;
-    padding: 2em;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-}
-
-footer{
-    bottom: 0;
-}
-
-
-nav > div, footer > div{
-    padding: 2em;
-    cursor: pointer;
-}
-
-.header{
-    display: flex;
-    flex-direction: column;
+const Navbar = styled.nav`
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  padding: 2rem 4rem;
+  box-sizing: border-box;
+  
+  @media (max-width: 768px) {
     justify-content: center;
-    align-items: center;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%,-50%);
-    width: 75%;
-}
+    padding: 1rem 0.25rem;
+  }
+`;
 
-p{
+const NavLinks = styled.div`
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  @media (max-width: 768px) {
+    gap:0.5rem
+  }
+`;
+
+const NavLink = styled.a`
+  color: white;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 400;
+  padding: 0.4rem 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 25px;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: white;
+  }
+
+  @media (max-width: 768px) {
+    padding: 0.4rem 0.75rem;
+  }
+`;
+
+const MainContent = styled.main`
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1300px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 0 4rem;
+  box-sizing: border-box;
+  gap: 2rem;
+
+  @media (max-width: 1024px) {
+    flex-direction: column;
+    padding: 0.5rem;
     text-align: center;
-    font-size: 12px;
-}
+  }
 
-.placeholder{
+  @media (max-width: 768px) {
+    padding: 0.5rem;
+  }
+`;
+
+const LeftSection = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 650px;
+
+  
+`;
+
+const Greeting = styled.h2`
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin: 0 0 0.5rem 0;
+  letter-spacing: 0.5px;
+  text-align: left;
+  
+  @media (max-width: 1024px) {
     text-align: center;
-    font-family: 'Times New Roman', Times, serif;
-    font-size: 80px;
-    line-height: 2.25;
-}
+  }
+`;
 
-.nav-items{
-  font-weight: 600;
-}
+const Name = styled.h1`
+  font-size: 4rem;
+  font-weight: 800;
+  margin: 0;
+  line-height: 1.1;
+  letter-spacing: -1px;
+  text-align: left;
 
-`
+  @media (max-width: 1024px) {
+    text-align: center;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+`;
+
+const Role = styled.h3`
+  font-size: 2rem;
+  font-weight: 500;
+  margin: 0 0 2.5rem 0;
+  text-align: right;
+  padding-right: 2rem;
+
+  @media (max-width: 1024px) {
+    text-align: center;
+    padding-right: 0;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 1.8rem;
+  }
+`;
+
+const Description = styled.div`
+  font-size: 1.05rem;
+  line-height: 1.6;
+  margin-bottom: 3.5rem;
+  color: rgba(255, 255, 255, 0.95);
+  text-align: justify;
+
+  @media (max-width: 1024px) {
+    text-align: center;
+  }
+  
+  p {
+    margin-bottom: 1.5rem;
+  }
+`;
+
+const ActionButtons = styled.div`
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+`;
+
+const Button = styled.a`
+  color: white;
+  text-decoration: none;
+  font-size: 1.1rem;
+  font-weight: 500;
+  padding: 0.6rem 2.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: 30px;
+  transition: all 0.3s ease;
+  background: transparent;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: white;
+  }
+`;
+
+const RightSection = styled.div`
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
+  @media (max-width: 1024px) {
+    justify-content: center;
+    margin-top: 3rem;
+  }
+`;
+
+const Illustration = styled.img`
+  max-width: 90%;
+  height: auto;
+  object-fit: contain;
+  margin-right: -2rem;
+
+  @media (max-width: 1024px) {
+    max-width: 80%;
+    margin-right: 0;
+  }
+
+  @media (max-width: 768px) {
+    max-width: 80%;
+  }
+`;
