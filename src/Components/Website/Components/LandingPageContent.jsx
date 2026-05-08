@@ -29,7 +29,7 @@ const LandingPageContent = () => {
             </p>
           </Description>
           <ActionButtons>
-            <Button href="https://drive.google.com/file/d/1utmeT1y91LCD4nlIerbFQAIXgM0vZKUG/preview" target="_blank">Resume</Button>
+            <Button href="https://drive.google.com/file/d/1oC8-6DxL1DhqR4H2SlgInwrQv3ahSMz7/preview" target="_blank">Resume</Button>
             <Button href="https://drive.google.com/file/d/1QzasVGAUr5wfPv_6Gv9mmHGcan3sKFL0/preview" target="_blank">Portfolio</Button>
           </ActionButtons>
         </LeftSection>
